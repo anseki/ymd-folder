@@ -1,3 +1,11 @@
+/*
+ * ymdFolder
+ * v0.1.0
+ * https://github.com/anseki/ymd-folder
+ *
+ * Copyright (c) 2015 anseki
+ * Licensed under the MIT license.
+ */
 
 var
   FORMAT = '%Y%M%D',

@@ -27,7 +27,7 @@ try {
   keyExists = true;
 } catch (e) {}
 
-if (shell.Popup((keyExists ? 'Unregistar ' : 'Registar ') + APP_NAME +
+if (shell.Popup((keyExists ? 'Unregister ' : 'Register ') + APP_NAME +
     '.\nContinue?', 0, APP_NAME, 36) !== 6) {
   WScript.Quit(1);
 }
