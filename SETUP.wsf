@@ -1,0 +1,75 @@
+<job>
+  <script language="VBScript">
+
+Function getLCID()
+  getLCID = GetLocale
+End Function
+
+  </script>
+
+  <script language="JScript">
+
+var
+  APP_NAME = 'ymdFolder',
+  FILE_NAME = 'ymdFolder.js',
+  COMMAND_LABEL = (function(LCID) {
+    return (
+      LCID === 1031 /* de */      ? '\u0045\u0072\u0073\u0074\u0065\u006C\u006C\u0065\u006E\u0020\u0044\u0061\u0074\u0075\u006D\u002F\u0055\u0068\u0072\u007A\u0065\u0069\u0074\u0020\u004D\u0061\u0070\u0070\u0065' :
+      LCID === 1034 /* es */      ? '\u0043\u0072\u0065\u0061\u0072\u0020\u0046\u0065\u0063\u0068\u0061\u002F\u0048\u006F\u0072\u0061\u0020\u0043\u0061\u0072\u0070\u0065\u0074\u0061' :
+      LCID === 1036 /* fr */      ? '\u0043\u0072\u00E9\u0065\u0072\u0020\u0044\u0061\u0074\u0065\u002F\u0048\u0065\u0075\u0072\u0065\u0020\u0050\u006C\u0069\u0065\u0075\u0072' :
+      LCID === 1040 /* it */      ? '\u0043\u0072\u0065\u0061\u0020\u0044\u0061\u0074\u0061\u002F\u0054\u0065\u006D\u0070\u006F\u0020\u0043\u0061\u0072\u0074\u0065\u006C\u006C\u0061' :
+      LCID === 1041 /* ja */      ? '\u65E5\u4ED8\u002F\u6642\u9593\u30D5\u30A9\u30EB\u30C0\u30FC\u3092\u4F5C\u6210' :
+      LCID === 1042 /* ko */      ? '\uB0A0\uC9DC\u002F\uC2DC\uAC04\u0020\uD3F4\uB354\uB97C\u0020\uB9CC\uB4ED\uB2C8\uB2E4' :
+      LCID === 1049 /* ru */      ? '\u0421\u043E\u0437\u0434\u0430\u0442\u044C\u0020\u0414\u0430\u0442\u0430\u002F\u0432\u0440\u0435\u043C\u044F\u0020\u043F\u0430\u043F\u043A\u0443' :
+      LCID === 1054 /* th */      ? '\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E42\u0E1F\u0E25\u0E40\u0E14\u0E2D\u0E23\u0E4C\u0E27\u0E31\u0E19\u0E17\u0E35\u0E48\u002F\u0E40\u0E27\u0E25\u0E32' :
+      LCID === 2052 /* zh-cn */   ? '\u521B\u5EFA\u65E5\u671F\u002F\u65F6\u95F4\u6587\u4EF6\u5939' :
+      LCID === 2070 /* pt */      ? '\u0043\u0072\u0069\u0061\u0072\u0020\u0044\u0061\u0074\u0061\u002F\u0054\u0065\u006D\u0070\u006F\u0020\u0050\u0061\u0073\u0074\u0061' :
+                    /* default */   'Create Date/Time Folder'
+    ) + '(&Y)';
+  })(getLCID()),
+
+  shell = WScript.CreateObject('WScript.Shell'),
+  fso = new ActiveXObject('Scripting.FileSystemObject'),
+  path = fso.GetFile(WScript.ScriptFullName).ParentFolder.Path + '\\' + FILE_NAME,
+  keyDir = 'HKCR\\Directory\\shell\\' + APP_NAME,
+  keyDrv = 'HKCR\\Drive\\shell\\' + APP_NAME,
+  keyExists;
+
+// Run by WScript
+if (/\\cscript\.exe$/i.test(WScript.FullName)) {
+  shell.Run('wscript "' + WScript.ScriptFullName + '" "' + parentPath + '"');
+  WScript.Quit();
+}
+
+if (!fso.FileExists(path)) {
+  shell.Popup('Not Found File: ' + path, 0, APP_NAME, 48);
+  WScript.Quit(1);
+}
+
+try {
+  shell.RegRead(keyDir + '\\');
+  keyExists = true;
+} catch (e) {}
+
+if (shell.Popup((keyExists ? 'Unregister ' : 'Register ') + APP_NAME +
+    '.\nContinue?', 0, APP_NAME, 36) !== 6) {
+  WScript.Quit(1);
+}
+
+if (keyExists) { // Remove
+  shell.RegDelete(keyDir + '\\command\\');
+  shell.RegDelete(keyDir + '\\');
+  shell.RegDelete(keyDrv + '\\command\\');
+  shell.RegDelete(keyDrv + '\\');
+} else {
+  shell.RegWrite(keyDir + '\\', COMMAND_LABEL);
+  shell.RegWrite(keyDir + '\\command\\', 'wscript \"' + path + '\" \"%1\"');
+  shell.RegWrite(keyDrv + '\\', COMMAND_LABEL);
+  shell.RegWrite(keyDrv + '\\command\\', 'wscript \"' + path + '\" \"%1\"');
+}
+
+shell.Popup('Success!', 0, APP_NAME, 64);
+WScript.Quit();
+
+  </script>
+</job>
