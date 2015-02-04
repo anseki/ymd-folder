@@ -1,6 +1,6 @@
 /*
  * ymdFolder
- * v0.1.0
+ * v0.2.0
  * https://github.com/anseki/ymd-folder
  *
  * Copyright (c) 2015 anseki
