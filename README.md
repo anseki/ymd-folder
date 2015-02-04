@@ -1,6 +1,6 @@
 # ymdFolder
 
-Add a command that creates a new folder that was named by date or time to the context menu of the Windows Explorer.
+Add a command to the context menu of the Windows Explorer. That creates a new folder named after current date and time.
 
 ![cap01](cap01.png)
 
