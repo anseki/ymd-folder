@@ -16,4 +16,5 @@ Right click a `SETUP.bat`, and select "Run as administrator".
 See the comment in a `ymdFolder.js`, and edit `FORMAT`.
 
 ## History
+ * 2015-02-04           v0.2.0          Support some languages
  * 2015-01-16           v0.1.0          Initial release.
