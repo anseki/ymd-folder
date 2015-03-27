@@ -1,3 +1,2 @@
-%~d0
-cd "%~dp0"
-start wscript SETUP.wsf
+cd /d "%~dp0"
+start wscript.exe SETUP.wsf

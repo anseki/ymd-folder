@@ -30,7 +30,7 @@ var
 
 // Run by WScript
 if (/\\cscript\.exe$/i.test(WScript.FullName)) {
-  shell.Run('wscript "' + WScript.ScriptFullName + '" "' + parentPath + '"');
+  shell.Run('wscript.exe "' + WScript.ScriptFullName + '" "' + parentPath + '"');
   WScript.Quit();
 }
 
