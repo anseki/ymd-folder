@@ -1,2 +1,2 @@
 cd /d "%~dp0"
-start wscript.exe SETUP.wsf
+start wscript.ex SETUP.wsf
